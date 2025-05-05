@@ -12,7 +12,7 @@ const main = () => {
 
     rl.on('line', (input) => {
         rl.pause();
-        if (input === 'exit' || input === '.exit') {
+        if (input === '.exit') {
             rl.emit('SIGINT');
         } else {
             try {
