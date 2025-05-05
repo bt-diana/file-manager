@@ -2,6 +2,8 @@ import { createInterface } from 'node:readline/promises';
 import { HELLO_MESSAGE, FARAWELL_MESSAGE, PRINT_COMMAND_MESSAGE } from './constants.js';
 import { getCurrentDirMessage } from './currentDir.js';
 import runCommand from './runCommand.js';
+import { InvalidInput, OperationFailed } from './errors.js';
+import { ReadStream } from 'node:fs';
 
 const main = () => {
     const rl = createInterface(process.stdin, process.stdout);
@@ -17,11 +19,29 @@ const main = () => {
         } else {
             try {
                 const [command, ...options] = input.split(' ');
-                await runCommand(command, options);
+                const result = await runCommand(command, options);
+
+                if (result instanceof ReadStream) {
+                    result.on('end', () => {
+                        console.log('');
+                        rl.resume();
+                    });
+
+                    result.on('error', e => {
+                        if (e.code === 'ENOENT') {
+                            console.error(new InvalidInput().message);
+                        } else {
+                            console.error(new OperationFailed().message);
+                        }
+                        rl.resume();
+                    }); 
+                } else {
+                    rl.resume();
+                }
             } catch (e) {
                 console.error(e.message);
+                rl.resume();
             }
-            rl.resume();
         }
     });
 

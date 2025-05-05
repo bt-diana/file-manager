@@ -2,6 +2,7 @@ import { InvalidInput } from './errors.js';
 import up from './commands/up.js';
 import cd from './commands/cd.js';
 import ls from './commands/ls.js';
+import cat from './commands/cat.js';
 
 const runCommand = async (command, options) => {
     if (command === 'up' && options.length === 0) {
@@ -14,6 +15,10 @@ const runCommand = async (command, options) => {
 
     if (command === 'ls' && options.length === 0) {
         return ls();
+    }
+
+    if (command === 'cat' && options.length === 1) {
+        return cat(options[0]);
     }
 
     throw new InvalidInput();
