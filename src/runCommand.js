@@ -6,6 +6,7 @@ import cat from './commands/cat.js';
 import add from './commands/add.js';
 import mkdir from './commands/mkdir.js';
 import rn from './commands/rn.js';
+import cp from './commands/cp.js';
 
 const runCommand = async (command, options) => {
     if (command === 'up' && options.length === 0) {
@@ -36,6 +37,9 @@ const runCommand = async (command, options) => {
         return rn(options[0], options[1]);
     }
 
+    if (command === 'cp' && options.length === 2) {
+        return cp(options[0], options[1]);
+    }
 
     throw new InvalidInput();
 };

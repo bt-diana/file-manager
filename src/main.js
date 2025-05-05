@@ -23,7 +23,6 @@ const main = () => {
 
                 if (result instanceof ReadStream) {
                     result.on('end', () => {
-                        console.log('');
                         rl.resume();
                     });
 
