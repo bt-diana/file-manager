@@ -21,8 +21,8 @@ const main = () => {
             } catch (e) {
                 console.error(e.message);
             }
+            rl.resume();
         }
-        rl.resume();
     });
 
     rl.on('resume', () => {
