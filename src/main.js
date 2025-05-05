@@ -1,13 +1,13 @@
 const { createInterface } = require('node:readline/promises');
-const { USERNAME } = require('./constants.js');
-const { currentDirectory } = require('./variables.js');
+const { HELLO_MESSAGE, FARAWELL_MESSAGE, PRINT_COMMAND_MESSAGE } = require('./constants.js');
+const { currentDirectoryMessage } = require('./variables.js');
 
 const main = () => {
     const rl = createInterface(process.stdin, process.stdout);
 
-    console.log(`Welcome to the File Manager, ${USERNAME}!`);
-    console.log(`You are currently in ${currentDirectory}`);
-    console.log('Please, enter your command:');
+    console.log(HELLO_MESSAGE);
+    console.log(currentDirectoryMessage);
+    console.log(PRINT_COMMAND_MESSAGE);
 
     rl.on('line', (input) => {
         if (input === 'exit' || input === '.exit') {
@@ -20,12 +20,12 @@ const main = () => {
     });
 
     rl.on('resume', () => {
-        console.log(`You are currently in ${currentDirectory}`);
-        console.log('Please, enter your command:');
+        console.log(currentDirectoryMessage);
+        console.log(PRINT_COMMAND_MESSAGE);
     }); 
 
     rl.on('SIGINT', () => {
-        console.log(`Thank you for using File Manager, ${USERNAME}, goodbye!`);
+        console.log(FARAWELL_MESSAGE);
         rl.close();
     });
 };
