@@ -1,13 +1,13 @@
 const { createInterface } = require('node:readline/promises');
 const { HELLO_MESSAGE, FARAWELL_MESSAGE, PRINT_COMMAND_MESSAGE } = require('./constants.js');
-const { getCurrentDirectoryMessage } = require('./currentDirectory.js');
+const { getCurrentDirMessage } = require('./currentDir.js');
 const runCommand = require('./runCommand.js');
 
 const main = () => {
     const rl = createInterface(process.stdin, process.stdout);
 
     console.log(HELLO_MESSAGE);
-    console.log(getCurrentDirectoryMessage());
+    console.log(getCurrentDirMessage());
     console.log(PRINT_COMMAND_MESSAGE);
 
     rl.on('line', (input) => {
@@ -26,7 +26,7 @@ const main = () => {
     });
 
     rl.on('resume', () => {
-        console.log(getCurrentDirectoryMessage());
+        console.log(getCurrentDirMessage());
         console.log(PRINT_COMMAND_MESSAGE);
     }); 
 

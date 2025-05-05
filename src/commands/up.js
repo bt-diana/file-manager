@@ -1,12 +1,12 @@
-const { getCurrentDirectory, setCurrentDirectory } = require('../currentDirectory.js');
+const { getCurrentDir, setCurrentDir } = require('../currentDir.js');
 const { resolve, parse } = require('node:path');
 
 const up = () => {
-    let newDirectory = resolve(getCurrentDirectory(), '..');
-    if (getCurrentDirectory() === newDirectory) {
-        newDirectory = parse(getCurrentDirectory()).root;
+    let newDir = resolve(getCurrentDir(), '..');
+    if (getCurrentDir() === newDir) {
+        newDir = parse(getCurrentDir()).root;
     }
-    setCurrentDirectory(newDirectory);
+    setCurrentDir(newDir);
 };
 
 module.exports = up;
