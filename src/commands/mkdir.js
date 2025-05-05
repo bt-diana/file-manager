@@ -8,7 +8,7 @@ const mkdir = async (dirName) => {
 
     try {
         await fsMkdir(dirPath);
-        console.log(`Created a new directory ${dirPath}`)
+        console.log(`Created a new directory ${dirPath}`);
     } catch (e) {
         if (e.code === 'EEXIST') {
             throw new InvalidInput();

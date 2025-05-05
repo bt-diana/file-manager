@@ -9,7 +9,7 @@ const add = async (fileName) => {
     let file;
     try {
         file = await open(filePath, 'wx');
-        console.log(`Created a new empty file ${filePath}`)
+        console.log(`Created a new empty file ${filePath}`);
     } catch (e) {
         if (e.code === 'EEXIST') {
             throw new InvalidInput();
