@@ -11,14 +11,18 @@ const main = () => {
     console.log(PRINT_COMMAND_MESSAGE);
 
     rl.on('line', (input) => {
+        rl.pause();
         if (input === 'exit' || input === '.exit') {
             rl.emit('SIGINT');
         } else {
-            const [command, ...options] = input.split(' ');
-            rl.pause();
-            runCommand(command, options);
-            rl.resume();
+            try {
+                const [command, ...options] = input.split(' ');
+                runCommand(command, options);
+            } catch (e) {
+                console.error(e.message);
+            }
         }
+        rl.resume();
     });
 
     rl.on('resume', () => {
