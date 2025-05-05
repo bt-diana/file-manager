@@ -1,10 +1,10 @@
 import { OperationFailed } from '../errors.js';
-import getAbsoluteFilePath from '../utils/getAbsoluteFilePath.js';
+import getAbsolutePath from '../utils/getAbsolutePath.js';
 import { unlink } from 'node:fs/promises';
 
 const rm = async (filePath) => {
     try {
-        const absoluteFilePath = getAbsoluteFilePath(filePath);
+        const absoluteFilePath = getAbsolutePath(filePath);
         await unlink(absoluteFilePath);
         console.log(`Deleted ${absoluteFilePath} file`);
     } catch {

@@ -1,4 +1,5 @@
 import { OperationFailed } from '../errors.js';
+import getAbsolutePath from '../utils/getAbsolutePath.js';
 import getAbsoluteFilePath from '../utils/getAbsoluteFilePath.js';
 import { basename, dirname } from 'node:path';
 import { createReadStream, createWriteStream } from 'node:fs';
@@ -10,7 +11,7 @@ const cp = async (filePath, dirPath) => {
     let stats;
 
     try {
-        absoluteFilePath = getAbsoluteFilePath(filePath);
+        absoluteFilePath = getAbsolutePath(filePath);
         absoluteNewFilePath = getAbsoluteFilePath(dirPath, basename(absoluteFilePath));
     } catch {
         console.log(1)
