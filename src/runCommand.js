@@ -8,6 +8,7 @@ import mkdir from './commands/mkdir.js';
 import rn from './commands/rn.js';
 import cp from './commands/cp.js';
 import mv from './commands/mv.js';
+import rm from './commands/rm.js';
 
 const runCommand = async (command, options) => {
     if (command === 'up' && options.length === 0) {
@@ -44,6 +45,10 @@ const runCommand = async (command, options) => {
 
     if (command === 'mv' && options.length === 2) {
         return mv(options[0], options[1]);
+    }
+
+    if (command === 'rm' && options.length === 1) {
+        return rm(options[0]);
     }
 
     throw new InvalidInput();
