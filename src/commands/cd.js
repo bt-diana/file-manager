@@ -1,7 +1,7 @@
-const { getCurrentDir, setCurrentDir } = require('../currentDir.js');
-const { InvalidInput, OperationFailed } = require('../errors.js');
-const { stat } = require('node:fs/promises');
-const { resolve, isAbsolute } = require('node:path');
+import { getCurrentDir, setCurrentDir } from '../currentDir.js';
+import { InvalidInput, OperationFailed } from '../errors.js';
+import { stat } from 'node:fs/promises';
+import { resolve, isAbsolute } from 'node:path';
 
 const cd = async (path) => {
     try {
@@ -20,4 +20,4 @@ const cd = async (path) => {
     }
 };
 
-module.exports = cd;
+export default cd;

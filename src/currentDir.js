@@ -1,4 +1,4 @@
-const { homedir } = require('node:os');
+import { homedir } from 'node:os';
 
 let currentDir = homedir();
 const getCurrentDir = () => currentDir;
@@ -7,7 +7,7 @@ const setCurrentDir = (value) => {
 }
 const getCurrentDirMessage = () => `You are currently in ${currentDir}`;
 
-module.exports = {
+export {
     getCurrentDir,
     setCurrentDir,
     getCurrentDirMessage

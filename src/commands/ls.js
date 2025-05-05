@@ -1,7 +1,7 @@
-const { getCurrentDir } = require('../currentDir.js');
-const { OperationFailed } = require('../errors.js');
-const { readdir, stat } = require('node:fs/promises');
-const { resolve } = require('node:path');
+import { getCurrentDir } from '../currentDir.js';
+import { OperationFailed } from '../errors.js';
+import { readdir, stat } from 'node:fs/promises';
+import { resolve } from 'node:path';
 
 class DirContent {
     constructor(name, isDirectory) {
@@ -27,4 +27,4 @@ const ls = async () => {
     }
 };
 
-module.exports = ls;
+export default ls;

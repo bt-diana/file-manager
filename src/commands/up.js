@@ -1,6 +1,6 @@
-const { getCurrentDir, setCurrentDir } = require('../currentDir.js');
-const { OperationFailed } = require('../errors.js');
-const { resolve, parse } = require('node:path');
+import { getCurrentDir, setCurrentDir } from '../currentDir.js';
+import { OperationFailed } from '../errors.js';
+import { resolve, parse } from 'node:path';
 
 const up = () => {
     try {
@@ -11,4 +11,4 @@ const up = () => {
     } 
 };
 
-module.exports = up;
+export default up;

@@ -1,7 +1,7 @@
-const { createInterface } = require('node:readline/promises');
-const { HELLO_MESSAGE, FARAWELL_MESSAGE, PRINT_COMMAND_MESSAGE } = require('./constants.js');
-const { getCurrentDirMessage } = require('./currentDir.js');
-const runCommand = require('./runCommand.js');
+import { createInterface } from 'node:readline/promises';
+import { HELLO_MESSAGE, FARAWELL_MESSAGE, PRINT_COMMAND_MESSAGE } from './constants.js';
+import { getCurrentDirMessage } from './currentDir.js';
+import runCommand from './runCommand.js';
 
 const main = () => {
     const rl = createInterface(process.stdin, process.stdout);

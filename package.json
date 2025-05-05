@@ -2,7 +2,7 @@
   "name": "file-manager",
   "version": "1.0.0",
   "description": "This repository is the solution of nodejs-assignments https://github.com/AlreadyBored/nodejs-assignments/blob/main/assignments/file-manager/assignment.md",
-  "type":"commonjs",
+  "type":"module",
   "scripts": {
     "start": "node ./src/main.js"
   },

@@ -1,7 +1,7 @@
-const { InvalidInput } = require('./errors.js');
-const up = require('./commands/up.js');
-const cd = require('./commands/cd.js');
-const ls = require('./commands/ls.js');
+import { InvalidInput } from './errors.js';
+import up from './commands/up.js';
+import cd from './commands/cd.js';
+import ls from './commands/ls.js';
 
 const runCommand = async (command, options) => {
     if (command === 'up' && options.length === 0) {
@@ -19,4 +19,4 @@ const runCommand = async (command, options) => {
     throw new InvalidInput();
 };
 
-module.exports = runCommand;
+export default runCommand;

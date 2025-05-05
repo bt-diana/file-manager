@@ -10,7 +10,7 @@ class OperationFailed extends Error {
     }
 }
 
-module.exports = {
+export {
     InvalidInput,
     OperationFailed
-}
+};
