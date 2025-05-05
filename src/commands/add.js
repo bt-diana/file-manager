@@ -1,6 +1,6 @@
 import { getCurrentDir } from '../currentDir.js';
 import { InvalidInput, OperationFailed } from '../errors.js';
-import { resolve, parse } from 'node:path';
+import { resolve } from 'node:path';
 import { open } from 'node:fs/promises';
 
 const add = async (fileName) => {
