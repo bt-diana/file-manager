@@ -1,6 +1,6 @@
-import { getCurrentDir } from '../currentDir.js';
 import { OperationFailed } from '../errors.js';
-import { resolve, dirname, isAbsolute } from 'node:path';
+import getAbsolutePath from '../utils/getAbsolutePath.js';
+import getAbsoluteFilePath from '../utils/getAbsoluteFilePath.js';
 import { stat, rename } from 'node:fs/promises';
 
 const rn = async (path, newFileName) => {
@@ -9,8 +9,8 @@ const rn = async (path, newFileName) => {
     let stats;
 
     try {
-        oldAbsolutePath = isAbsolute(path) ? path : resolve(getCurrentDir(), path);
-        newAbsolutePath = resolve(dirname(oldAbsolutePath), newFileName);
+        oldAbsolutePath = getAbsolutePath(path);
+        newAbsolutePath = getAbsoluteFilePath(path, newFileName);
     } catch {
         throw new OperationFailed();
     }

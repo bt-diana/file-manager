@@ -10,7 +10,7 @@ const add = async (fileName) => {
     try {
         file = await open(filePath, 'wx');
         console.log(`Created a new empty file ${filePath}`);
-    } catch {
+    } catch (e) {
         throw new OperationFailed();
     } finally {
         await file?.close();

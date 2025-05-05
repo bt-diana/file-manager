@@ -1,11 +1,10 @@
-import { getCurrentDir } from '../currentDir.js';
 import { OperationFailed } from '../errors.js';
 import { createReadStream } from 'node:fs';
-import { resolve, isAbsolute } from 'node:path';
+import getAbsolutePath from '../utils/getAbsolutePath.js';
 
 const cat = (path) => {
     try {
-        const absolutePath = isAbsolute(path) ? path : resolve(getCurrentDir(), path);
+        const absolutePath = getAbsolutePath(path);
         const readStream = createReadStream(absolutePath);
 
         readStream.on('error', () => {

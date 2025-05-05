@@ -1,11 +1,11 @@
 import { getCurrentDir, setCurrentDir } from '../currentDir.js';
 import { OperationFailed } from '../errors.js';
 import { stat } from 'node:fs/promises';
-import { resolve, isAbsolute } from 'node:path';
+import getAbsolutePath from '../utils/getAbsolutePath.js';
 
 const cd = async (path) => {
     try {
-        const newCurrentDir = isAbsolute(path) ? path : resolve(getCurrentDir(), path);
+        const newCurrentDir = getAbsolutePath(path);
         if ((await stat(newCurrentDir)).isDirectory()) {
             setCurrentDir(newCurrentDir);
         } else {

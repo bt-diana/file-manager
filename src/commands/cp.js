@@ -1,6 +1,6 @@
-import { getCurrentDir } from '../currentDir.js';
 import { OperationFailed } from '../errors.js';
-import { resolve, isAbsolute, basename, dirname } from 'node:path';
+import getAbsoluteFilePath from '../utils/getAbsoluteFilePath.js';
+import { basename, dirname } from 'node:path';
 import { createReadStream, createWriteStream } from 'node:fs';
 import { stat } from 'node:fs/promises';
 
@@ -10,9 +10,10 @@ const cp = async (filePath, dirPath) => {
     let stats;
 
     try {
-        absoluteFilePath = isAbsolute(filePath) ? filePath : resolve(getCurrentDir(), filePath);
-        absoluteNewFilePath = isAbsolute(dirPath) ? resolve(dirPath, basename(absoluteFilePath)) : resolve(getCurrentDir(), dirPath, basename(absoluteFilePath));
+        absoluteFilePath = getAbsoluteFilePath(filePath);
+        absoluteNewFilePath = getAbsoluteFilePath(dirPath, basename(absoluteFilePath));
     } catch {
+        console.log(1)
         throw new OperationFailed();
     }
     
