@@ -5,6 +5,7 @@ import ls from './commands/ls.js';
 import cat from './commands/cat.js';
 import add from './commands/add.js';
 import mkdir from './commands/mkdir.js';
+import rn from './commands/rn.js';
 
 const runCommand = async (command, options) => {
     if (command === 'up' && options.length === 0) {
@@ -30,6 +31,11 @@ const runCommand = async (command, options) => {
     if (command === 'mkdir' && options.length === 1) {
         return mkdir(options[0]);
     }
+
+    if (command === 'rn' && options.length === 2) {
+        return rn(options[0], options[1]);
+    }
+
 
     throw new InvalidInput();
 };
