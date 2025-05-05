@@ -1,5 +1,5 @@
 import { getCurrentDir } from '../currentDir.js';
-import { InvalidInput, OperationFailed } from '../errors.js';
+import { OperationFailed } from '../errors.js';
 import { resolve, dirname, isAbsolute } from 'node:path';
 import { stat, rename } from 'node:fs/promises';
 
@@ -11,10 +11,7 @@ const rn = async (path, newFileName) => {
     try {
         oldAbsolutePath = isAbsolute(path) ? path : resolve(getCurrentDir(), path);
         newAbsolutePath = resolve(dirname(oldAbsolutePath), newFileName);
-    } catch (e) {
-        if (e.code === 'ENOENT') {
-            throw new InvalidInput();
-        }
+    } catch {
         throw new OperationFailed();
     }
     
@@ -33,10 +30,7 @@ const rn = async (path, newFileName) => {
     try {
         await rename(oldAbsolutePath, newAbsolutePath);
         console.log(`Renamed ${oldAbsolutePath} to ${newAbsolutePath}`);
-    } catch (e) {
-        if (e.code === 'ENOENT') {
-            throw new InvalidInput();
-        }
+    } catch {
         throw new OperationFailed();
     }
 };

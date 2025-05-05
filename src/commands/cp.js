@@ -1,5 +1,5 @@
 import { getCurrentDir } from '../currentDir.js';
-import { InvalidInput, OperationFailed } from '../errors.js';
+import { OperationFailed } from '../errors.js';
 import { resolve, isAbsolute, basename, dirname } from 'node:path';
 import { createReadStream, createWriteStream } from 'node:fs';
 import { stat } from 'node:fs/promises';
@@ -12,10 +12,7 @@ const cp = async (filePath, dirPath) => {
     try {
         absoluteFilePath = isAbsolute(filePath) ? filePath : resolve(getCurrentDir(), filePath);
         absoluteNewFilePath = isAbsolute(dirPath) ? dirPath : resolve(getCurrentDir(), dirPath, basename(absoluteFilePath));
-    } catch (e) {
-        if (e.code === 'ENOENT') {
-            throw new InvalidInput();
-        }
+    } catch {
         throw new OperationFailed();
     }
     
@@ -28,7 +25,7 @@ const cp = async (filePath, dirPath) => {
     }
 
     if (stats) {
-        throw new InvalidInput();
+        throw new OperationFailed();
     }
 
     try {
@@ -40,10 +37,7 @@ const cp = async (filePath, dirPath) => {
         });
         readStream.pipe(writeStream);
         return readStream;
-    } catch (e) {
-        if (e.code === 'ENOENT') {
-            throw new InvalidInput();
-        }
+    } catch {
         throw new OperationFailed();
     }
 };

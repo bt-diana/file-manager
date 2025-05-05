@@ -1,5 +1,5 @@
 import { getCurrentDir } from '../currentDir.js';
-import { InvalidInput, OperationFailed } from '../errors.js';
+import { OperationFailed } from '../errors.js';
 import { createReadStream } from 'node:fs';
 import { resolve, isAbsolute } from 'node:path';
 
@@ -13,10 +13,7 @@ const cat = (path) => {
         });
         readStream.pipe(process.stdout);
         return readStream;
-    } catch (e) {
-        if (e.code === 'ENOENT') {
-            throw new InvalidInput();
-        }
+    } catch {
         throw new OperationFailed();
     }
 };

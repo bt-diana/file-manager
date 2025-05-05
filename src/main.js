@@ -2,7 +2,7 @@ import { createInterface } from 'node:readline/promises';
 import { HELLO_MESSAGE, FARAWELL_MESSAGE, PRINT_COMMAND_MESSAGE } from './constants.js';
 import { getCurrentDirMessage } from './currentDir.js';
 import runCommand from './runCommand.js';
-import { InvalidInput, OperationFailed } from './errors.js';
+import { OperationFailed } from './errors.js';
 import { ReadStream } from 'node:fs';
 
 const main = () => {
@@ -26,12 +26,8 @@ const main = () => {
                         rl.resume();
                     });
 
-                    result.on('error', e => {
-                        if (e.code === 'ENOENT') {
-                            console.error(new InvalidInput().message);
-                        } else {
-                            console.error(new OperationFailed().message);
-                        }
+                    result.on('error', () => {
+                        console.error(new OperationFailed().message);
                         rl.resume();
                     }); 
                 } else {
