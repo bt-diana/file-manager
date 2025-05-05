@@ -10,14 +10,14 @@ const main = () => {
     console.log(getCurrentDirMessage());
     console.log(PRINT_COMMAND_MESSAGE);
 
-    rl.on('line', (input) => {
+    rl.on('line', async (input) => {
         rl.pause();
         if (input === '.exit') {
             rl.emit('SIGINT');
         } else {
             try {
                 const [command, ...options] = input.split(' ');
-                runCommand(command, options);
+                await runCommand(command, options);
             } catch (e) {
                 console.error(e.message);
             }
