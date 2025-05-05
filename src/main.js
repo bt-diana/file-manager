@@ -3,7 +3,7 @@ import { HELLO_MESSAGE, FARAWELL_MESSAGE, PRINT_COMMAND_MESSAGE } from './consta
 import { getCurrentDirMessage } from './currentDir.js';
 import runCommand from './runCommand.js';
 import { OperationFailed } from './errors.js';
-import { ReadStream } from 'node:fs';
+import { ReadStream, WriteStream } from 'node:fs';
 
 const main = () => {
     const rl = createInterface(process.stdin, process.stdout);
@@ -20,19 +20,36 @@ const main = () => {
             try {
                 const [command, ...options] = input.split(' ');
                 const result = await runCommand(command, options);
+                const readable = result?.readable;
+                const writable = result?.writable;
+                const processReadable = readable instanceof ReadStream;
+                const processWritable = writable instanceof WriteStream;
+                const resume = !processReadable && !processWritable;
 
-                if (result instanceof ReadStream) {
-                    result.on('end', () => {
+                if (resume) {
+                    rl.resume();
+                }
+
+                if (processReadable) {
+                    readable.on('end', () => {
                         rl.resume();
                     });
 
-                    result.on('error', () => {
-                        console.error(new OperationFailed().message);
+                    readable.on('error', () => {
                         rl.resume();
-                    }); 
-                } else {
-                    rl.resume();
+                    });
+                } 
+                
+                if (processWritable) {
+                    writable.on('end', () => {
+                        rl.resume();
+                    });
+
+                    writable.on('error', () => {
+                        rl.resume();
+                    });
                 }
+                
             } catch (e) {
                 console.error(e.message);
                 rl.resume();

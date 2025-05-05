@@ -11,7 +11,7 @@ const cp = async (filePath, dirPath) => {
 
     try {
         absoluteFilePath = isAbsolute(filePath) ? filePath : resolve(getCurrentDir(), filePath);
-        absoluteNewFilePath = isAbsolute(dirPath) ? dirPath : resolve(getCurrentDir(), dirPath, basename(absoluteFilePath));
+        absoluteNewFilePath = isAbsolute(dirPath) ? resolve(dirPath, basename(absoluteFilePath)) : resolve(getCurrentDir(), dirPath, basename(absoluteFilePath));
     } catch {
         throw new OperationFailed();
     }
@@ -32,11 +32,17 @@ const cp = async (filePath, dirPath) => {
         const readStream = createReadStream(absoluteFilePath);
         const writeStream = createWriteStream(absoluteNewFilePath);
 
+        writeStream.on('error', () => {
+            console.error(new OperationFailed().message);
+        });
+        readStream.on('error', () => {
+            console.error(new OperationFailed().message);
+        }); 
         readStream.on('end', () => {
             console.log(`Copied ${absoluteFilePath} file to ${dirname(absoluteNewFilePath)}`);
-        });
+        }); 
         readStream.pipe(writeStream);
-        return readStream;
+        return { readable: readStream, writable: writeStream };
     } catch {
         throw new OperationFailed();
     }

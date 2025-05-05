@@ -8,11 +8,14 @@ const cat = (path) => {
         const absolutePath = isAbsolute(path) ? path : resolve(getCurrentDir(), path);
         const readStream = createReadStream(absolutePath);
 
+        readStream.on('error', () => {
+            console.error(new OperationFailed().message);
+        }); 
         readStream.on('end', () => {
             console.log('');
         });
         readStream.pipe(process.stdout);
-        return readStream;
+        return { readable: readStream };
     } catch {
         throw new OperationFailed();
     }
