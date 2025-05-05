@@ -46,6 +46,7 @@ const main = () => {
     });
 
     rl.on('resume', () => {
+        console.log('');
         console.log(getCurrentDirMessage());
         console.log(PRINT_COMMAND_MESSAGE);
     }); 
