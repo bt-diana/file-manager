@@ -12,6 +12,7 @@ import rm from './commands/rm.js';
 import hash from './commands/hash.js';
 import compress from './commands/compress.js';
 import decompress from './commands/decompress.js';
+import os from './commands/os.js';
 
 const runCommand = async (command, options) => {
     if (command === 'up' && options.length === 0) {
@@ -64,6 +65,10 @@ const runCommand = async (command, options) => {
 
     if (command === 'decompress' && options.length === 2) {
         return decompress(options[0], options[1]);
+    }
+
+    if (command === 'os' && options.length === 1) {
+        return os(options[0]);
     }
 
     throw new InvalidInput();
